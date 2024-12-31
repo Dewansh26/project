@@ -1,11 +1,15 @@
-variable "aws_access_key" {
-  description = "AWS Access Key"
-  type        = string
-  sensitive   = true
+variable "key-name" {
+
 }
 
-variable "aws_secret_key" {
-  description = "AWS Secret Key"
-  type        = string
-  sensitive   = true
+variable "network-security-group-name" {
+
+}
+
+variable "ubuntu-ami" {
+
+}
+
+variable "ubuntu-instance-type" {
+
 }
