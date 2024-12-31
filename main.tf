@@ -1,35 +1,14 @@
-# Creating key-pair on AWS using SSH-public key
-resource "aws_key_pair" "deployer" {
-  key_name   = var.key-name
-  public_key = file("${path.module}/my-key.pub")
+provider "aws" {
+region = "ap-south-1" # Replace with your desired region
+#ap-south-1
 }
-
-# Creating a security group to restrict/allow inbound connectivity
-resource "aws_security_group" "network-security-group" {
-  name        = var.network-security-group-name
-  description = "Allow TLS inbound traffic"
-
-  ingress {
-    description = "SSH"
-    from_port   = 22
-    to_port     = 22
-    protocol    = "tcp"
-    cidr_blocks = ["0.0.0.0/0"] 
-  }
-  # Not recommended to add "0.0.0.0/0" instead we need to be more specific with the IP ranges to allow connectivity from.
-  tags = {
-    Name = "nsg-inbound"
-  }
+resource "aws_instance" "my_instance" {
+ami = "ami-0fd05997b4dff7aac" # Replace with the correct AMI ID for your region
+#ami-03c68e52484d7488f
+instance_type = "t2.micro" # Choose an instance type
+tags = {
+Name = "MyTerraformInstance"
 }
-
-
-# Creating Ubuntu EC2 instance
-resource "aws_instance" "ubuntu-vm-instance" {
-  ami             = var.ubuntu-ami
-  instance_type   = var.ubuntu-instance-type
-  key_name        = aws_key_pair.deployer.key_name
-  vpc_security_group_ids = [aws_security_group.network-security-group.id]
-  tags = {
-    Name = "Debian_1"
-  }
+key_name = "vpc" # Replace with your EC2 key pair name
+#m2
 }
