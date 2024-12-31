@@ -39,12 +39,7 @@ resource "aws_security_group" "allow_http_ssh_https" {
     cidr_blocks = ["0.0.0.0/0"]
   }
 
-  # Use lifecycle to prevent Terraform from replacing the resource unless necessary
-  lifecycle {
-    prevent_destroy = true  # Prevents accidental deletion of the security group
-    ignore_changes  = [ingress, egress]  # Ignore changes to these rules if they are modified outside of Terraform
-  }
-}
+
 
 # EC2 instance configuration
 resource "aws_instance" "my_ec2_instance" {
@@ -52,8 +47,8 @@ resource "aws_instance" "my_ec2_instance" {
   instance_type = "t2.micro"                # Change to your desired instance type
   key_name      = "jenkins"                 # Replace with your existing key pair name
 
-  security_groups = [aws_security_group.allow_http_ssh_https.name]
-
+ # security_groups = [aws_security_group.allow_http_ssh_https.name]
+	vpc_security_group_ids = ["sg-045b7027126c1daad"]  # Replace sg-xxxxxxxx with your existing Security Group ID
   tags = {
     Name = "MyEC2Instance"
   }
