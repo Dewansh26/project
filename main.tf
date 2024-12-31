@@ -42,7 +42,7 @@ resource "aws_security_group" "allow_http_ssh_https" {
 
 # EC2 instance configuration
 resource "aws_instance" "my_ec2_instance" {
-  ami           = "ami-0fd05997b4dff7aac"  # Replace with your chosen AMI ID
+  ami           = "ami-03c68e52484d7488f"  # Replace with your chosen AMI ID
   instance_type = "t2.micro"                # Change to your desired instance type
   key_name      = "jenkins"      # Replace with your existing key pair name
 
