@@ -48,7 +48,7 @@ resource "aws_instance" "my_ec2_instance" {
   key_name      = "jenkins"                 # Replace with your existing key pair name
 
  # security_groups = [aws_security_group.allow_http_ssh_https.name]
-	vpc_security_group_ids = ["sg-045b7027126c1daad"]  # Replace sg-xxxxxxxx with your existing Security Group ID
+	vpc_security_group_ids = ["sg-08be20afe6dcfc3bb"]  # Replace sg-xxxxxxxx with your existing Security Group ID
   tags = {
     Name = "MyEC2Instance"
   }
