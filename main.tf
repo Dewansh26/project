@@ -62,7 +62,9 @@ resource "aws_instance" "my_ec2_instance" {
 output "instance_public_ip" {
   value = aws_instance.my_ec2_instance.public_ip
 }
+
 # Create an SSH key pair
+
 resource "aws_key_pair" "my_key" {
   key_name   = "my-ssh-key1"
   public_key = file("~/.ssh/id_rsa.pub")  # Ensure you have the key already generated
