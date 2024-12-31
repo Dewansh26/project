@@ -44,7 +44,7 @@ resource "aws_security_group" "allow_http_ssh_https" {
 resource "aws_instance" "my_ec2_instance" {
   ami           = "ami-0fd05997b4dff7aac"  # Replace with your chosen AMI ID
   instance_type = "t2.micro"                # Change to your desired instance type
-  key_name      = "vpc"      # Replace with your existing key pair name
+  key_name      = "jenkins"      # Replace with your existing key pair name
 
   security_groups = [aws_security_group.allow_http_ssh_https.name]
 
