@@ -1,12 +1,12 @@
 provider "aws" {
-  region     = "ap-south-1"              # Replace with your preferred AWS region
+  region = "ap-south-1"  # Replace with your preferred AWS region
 }
 
 # Security group to allow inbound traffic on ports 22 (SSH), 80 (HTTP), and 443 (HTTPS)
 resource "aws_security_group" "allow_http_ssh_https" {
   name        = "allow-http-ssh-https"
   description = "Allow inbound HTTP, HTTPS, and SSH traffic"
-  
+
   # Allow SSH on port 22
   ingress {
     from_port   = 22
@@ -38,13 +38,19 @@ resource "aws_security_group" "allow_http_ssh_https" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
+
+  # Use lifecycle to prevent Terraform from replacing the resource unless necessary
+  lifecycle {
+    prevent_destroy = true  # Prevents accidental deletion of the security group
+    ignore_changes  = [ingress, egress]  # Ignore changes to these rules if they are modified outside of Terraform
+  }
 }
 
 # EC2 instance configuration
 resource "aws_instance" "my_ec2_instance" {
   ami           = "ami-03c68e52484d7488f"  # Replace with your chosen AMI ID
   instance_type = "t2.micro"                # Change to your desired instance type
-  key_name      = "jenkins"      # Replace with your existing key pair name
+  key_name      = "jenkins"                 # Replace with your existing key pair name
 
   security_groups = [aws_security_group.allow_http_ssh_https.name]
 
