@@ -38,7 +38,7 @@ resource "aws_security_group" "allow_http_ssh_https" {
     protocol    = "-1"
     cidr_blocks = ["0.0.0.0/0"]
   }
-
+}
 
 
 # EC2 instance configuration
